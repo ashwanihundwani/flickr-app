@@ -14,7 +14,7 @@ let imageCache = NSCache<AnyObject, AnyObject>()
  This class extends the ImageView to provide the additional feature for downloaidng the image from the Flickr server.
  */
 class CustomImageView: UIImageView {
-
+    
     /**
      The URL instance to download the image.
      */
@@ -33,20 +33,25 @@ class CustomImageView: UIImageView {
             image = cachedImage
             return
         }
-        URLSession.shared.dataTask(with: URL) {[unowned self] data, response, error in
+        URLSession.shared.dataTask(with: URL) {[weak self] data, response, error in
             guard
+                let _ = self,
                 let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
                 let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
                 let data = data, error == nil,
                 let responseImage = UIImage(data: data)
                 else { return }
-            DispatchQueue.main.async() {[unowned self] in
-                if self.imageURL == URL {
-                    self.image = responseImage
+            DispatchQueue.main.async() {[weak self] in
+                
+                guard let weakSelf = self else {
+                    return
+                }
+                if weakSelf.imageURL == URL {
+                    weakSelf.image = responseImage
                 }
                 imageCache.setObject(responseImage, forKey: URL as AnyObject)
             }
             }.resume()
     }
-
 }
+

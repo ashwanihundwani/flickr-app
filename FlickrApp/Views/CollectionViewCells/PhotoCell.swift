@@ -33,8 +33,8 @@ class PhotoCell: UICollectionViewCell {
                 if let imageURL = URLBuilder.shared.imageURL(parameters:(farm, server, id, secret)) {
                     photoImageView.download(from: imageURL)
                 }
-                
             }
         }
     }
+
 }

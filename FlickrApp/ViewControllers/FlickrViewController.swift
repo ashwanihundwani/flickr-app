@@ -14,6 +14,7 @@ import UIKit
  */
 class FlickrViewController: UIViewController {
 
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
     var photosViewModel:PhotosViewModel?
     var searchRequestTimer:Timer?
@@ -164,6 +165,10 @@ extension FlickrViewController: UISearchBarDelegate {
                 searchRequestTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: (#selector(FlickrViewController.fetchPhotosForSearchedText)), userInfo: nil, repeats: false)
             }
         }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
 
