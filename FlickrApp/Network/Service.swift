@@ -9,6 +9,13 @@
 import UIKit
 
 /**
+ A custom error struct
+ */
+struct CustomError:Error {
+    
+}
+
+/**
  This class is the common access point for all the Flickr api calls made in this application.
  */
 class Service {
@@ -30,6 +37,8 @@ class Service {
             fetchPhotos(photosURL: photosURL, result: result)
         } else {
             print("Error in creating URL")
+            let customError = CustomError()
+            result(nil, customError)
         }
     }
     
@@ -45,6 +54,8 @@ class Service {
             fetchPhotos(photosURL: photosURL, result: result)
         } else {
             print("Error in creating URL")
+            let customError = CustomError()
+            result(nil, customError)
         }
     }
     

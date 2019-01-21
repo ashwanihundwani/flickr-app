@@ -121,7 +121,6 @@ extension FlickrViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        print(indexPath.row)
         if indexPath.row == (photosViewModel?.viewModels?.count)! - 1 {
             if (photosViewModel?.shouldLoadMore())! {
                 photosViewModel?.isFetching = true
